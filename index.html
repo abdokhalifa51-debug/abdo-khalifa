@@ -3,98 +3,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نظام إدارة قطع غيار الموتوسيكلات</title>
+  <title>Alrayan Moto Stock</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, Arial, sans-serif; }
-    body { background: #f0f2f5; color: #1c2b36; padding-bottom: 60px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: #f4f6f8; color: #1e293b; padding: 12px; font-size: 14px; }
     
-    header { background: #0077b6; color: #fff; padding: 15px; text-align: center; }
-    .logo-img { width: 100px; max-width: 80%; height: auto; margin-bottom: 8px; border-radius: 8px; }
-    header h1 { font-size: 20px; margin-bottom: 4px; }
+    /* هيدر الشعار والعنوان */
+    header { background: #0077b6; color: #fff; padding: 15px; text-align: center; border-radius: 12px; margin-bottom: 12px; }
+    .logo-img { max-width: 130px; height: auto; border-radius: 8px; margin-bottom: 8px; background: #fff; padding: 3px; display: block; margin-left: auto; margin-right: auto; }
+    header h1 { font-size: 20px; margin-bottom: 2px; }
     header p { font-size: 12px; opacity: 0.9; }
 
-    nav { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px; justify-content: center; }
-    nav button { border: 0; border-radius: 8px; padding: 10px 14px; background: #0284c7; color: #fff; font-weight: bold; cursor: pointer; font-size: 13px; }
-    nav button.secondary { background: #6c757d; }
+    /* الأزرار العلوية بالشكل القديم */
+    nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center; }
+    nav button { background: #2563eb; color: #fff; border: 0; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
+    nav button.secondary { background: #64748b; }
 
-    .card { background: #fff; border-radius: 12px; padding: 14px; margin: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 12px; }
-    input, select { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; outline: none; }
+    /* الكروت والخانات */
+    .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .btn-main { background: #2563eb; color: #fff; border: 0; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; float: left; margin-bottom: 12px; }
     
-    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
-    .kpi { background: #f8fafc; border-radius: 8px; padding: 10px; text-align: center; border: 1px solid #e2e8f0; }
-    .kpi b { font-size: 18px; color: #0284c7; }
+    input, select { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; font-size: 13px; background: #fff; outline: none; }
+    
+    /* جدول الأسعار وخانات التعديل */
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; text-align: center; }
+    th { background: #f8fafc; padding: 10px 4px; color: #475569; font-weight: bold; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
+    td { padding: 8px 4px; border-bottom: 1px solid #f1f5f9; }
+    td input[type="number"] { width: 60px; padding: 6px 2px; text-align: center; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background: #f8fafc; }
+    td input[type="number"]:focus { border-color: #2563eb; background: #fff; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2); }
 
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-    th { background: #f1f5f9; padding: 10px 6px; border-bottom: 2px solid #e2e8f0; text-align: center; white-space: nowrap; }
-    td { padding: 8px 4px; border-bottom: 1px solid #f1f5f9; text-align: center; }
-    td input[type="number"] { width: 65px; padding: 4px; text-align: center; border-radius: 4px; border: 1px solid #cbd5e1; }
-
+    /* الإحصائيات */
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; text-align: center; }
+    .kpi { background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; }
+    .kpi b { font-size: 16px; color: #2563eb; display: block; margin-top: 4px; }
     .hide { display: none !important; }
-    .btn-add { background: #10b981; color: #fff; border: 0; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; float: left; }
   </style>
 </head>
 <body>
 
+  <!-- ترويسة التطبيق بالشعار الشغال -->
   <header>
-    <img src="logo.png" alt="شعار الريان" class="logo-img" onerror="this.style.display='none'">
+    <img src="Logo.png" alt="الريان" class="logo-img" onerror="this.src='IMG-20260905-WA0013.jpg';">
     <h1>الريان لقطع غيار الموتوسيكلات</h1>
     <p>إدارة الكتالوج والمخزون والأسعار</p>
   </header>
 
+  <!-- القائمة القديمة الكاملة بكل أزرارها -->
   <nav>
     <button onclick="show('home')">الرئيسية</button>
     <button onclick="show('products')">الكتالوج</button>
     <button onclick="show('stock')">المخزون</button>
     <button onclick="show('sale')">بيع / منصرف</button>
     <button onclick="show('buy')">شراء / وارد</button>
-    <button onclick="show('customers')" class="secondary">العملاء</button>
+    <button onclick="show('move')" class="secondary">تحويل للعربية</button>
+    <button onclick="show('customers')">العملاء</button>
+    <button onclick="exportCSV()" class="secondary">تصدير الكتالوج</button>
+    <button onclick="importCSV()" class="secondary">استيراد</button>
   </nav>
 
   <main>
+    <!-- الرئيسية -->
     <section id="home">
       <div class="card">
         <div class="kpis">
-          <div class="kpi">عدد الأصناف<br><b id="nprod">0</b></div>
-          <div class="kpi">إجمالي الوحدة<br><b id="nloc">0</b></div>
-          <div class="kpi">إجمالي المخزون<br><b id="totalQty">0</b></div>
-          <div class="kpi">القيمة التقديرية<br><b id="totalVal">0 ج</b></div>
+          <div class="kpi">عدد الأصناف<b id="nprod">0</b></div>
+          <div class="kpi">إجمالي الوحدة<b id="nloc">0</b></div>
+          <div class="kpi">إجمالي المخزون<b id="totalQty">0</b></div>
+          <div class="kpi">القيمة التقديرية<b id="totalVal">0 ج</b></div>
         </div>
       </div>
     </section>
 
+    <!-- الكتالوج والمنتجات -->
     <section id="products" class="hide">
       <div class="card">
-        <button class="btn-add" onclick="addProduct()">+ إضافة صنف</button>
+        <button class="btn-main" onclick="addProduct()">+ إضافة صنف</button>
         <div style="clear:both;"></div>
-        <div class="grid">
-          <input type="text" id="search" placeholder="بحث بالاسم أو الكود..." oninput="render()">
-          <select id="brandFilter" onchange="render()"><option value="">كل الماركات</option></select>
-          <select id="modelFilter" onchange="render()"><option value="">كل الموديلات</option></select>
-          <select id="catFilter" onchange="render()"><option value="">كل الأقسام</option></select>
-        </div>
-        <div style="overflow-x:auto;">
-          <table>
-            <thead>
-              <tr>
-                <th>الماركة</th>
-                <th>الموديل</th>
-                <th>الصنف</th>
-                <th>شراء</th>
-                <th>قطاعي</th>
-                <th>جملة</th>
-                <th>موزع</th>
-              </tr>
-            </thead>
-            <tbody id="stockRows"></tbody>
-          </table>
-        </div>
+        <input type="text" id="search" placeholder="بحث بالاسم أو الكود..." oninput="render()">
+        <select id="brandFilter" onchange="render()"><option value="">كل الماركات</option></select>
+        <select id="modelFilter" onchange="render()"><option value="">كل الموديلات</option></select>
+        <select id="catFilter" onchange="render()"><option value="">كل الأقسام</option></select>
+      </div>
+
+      <div class="card" style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>الماركة</th>
+              <th>الموديل</th>
+              <th>الصنف</th>
+              <th>شراء</th>
+              <th>قطاعي</th>
+              <th>جملة</th>
+              <th>موزع</th>
+            </tr>
+          </thead>
+          <tbody id="stockRows"></tbody>
+        </table>
       </div>
     </section>
 
+    <!-- باقي الأقسام القديمة -->
     <section id="stock" class="hide"><div class="card"><h3>المخزون التفصيلي</h3></div></section>
     <section id="sale" class="hide"><div class="card"><h3>حركة البيع</h3></div></section>
     <section id="buy" class="hide"><div class="card"><h3>حركة الشراء</h3></div></section>
+    <section id="move" class="hide"><div class="card"><h3>تحويل للعربية</h3></div></section>
     <section id="customers" class="hide"><div class="card"><h3>قائمة العملاء</h3></div></section>
   </main>
 
@@ -111,9 +124,26 @@
       moves: []
     };
 
-    let db = JSON.parse(localStorage.getItem('alrayanMotoStock_v2')) || SEED;
+    // دالة استعادت الأصناف القديمة بالكامل
+    function loadData() {
+      let dataOld = localStorage.getItem('alrayanMotoStock');
+      let dataV2 = localStorage.getItem('alrayanMotoStock_v2');
+      
+      let parsedOld = dataOld ? JSON.parse(dataOld) : null;
+      let parsedV2 = dataV2 ? JSON.parse(dataV2) : null;
+
+      if (parsedOld && parsedOld.products && parsedOld.products.length >= (parsedV2?.products?.length || 0)) {
+        return parsedOld;
+      } else if (parsedV2) {
+        return parsedV2;
+      }
+      return SEED;
+    }
+
+    let db = loadData();
 
     function save() {
+      localStorage.setItem('alrayanMotoStock', JSON.stringify(db));
       localStorage.setItem('alrayanMotoStock_v2', JSON.stringify(db));
     }
 
@@ -132,7 +162,7 @@
       if(document.getElementById('nprod')) document.getElementById('nprod').textContent = db.products.length;
 
       let filtered = db.products.filter(p => {
-        let matchQ = !q || p.name.toLowerCase().includes(q) || p.code.toLowerCase().includes(q);
+        let matchQ = !q || (p.name && p.name.toLowerCase().includes(q)) || (p.code && p.code.toLowerCase().includes(q));
         let matchC = !cf || p.category === cf;
         let matchB = !bf || p.brand === bf;
         let matchM = !mf || p.model === mf;
@@ -156,6 +186,7 @@
       if(stockRows) stockRows.innerHTML = html;
     }
 
+    // التحديث التلقائي الفوري للسعر
     function updatePrice(productId, priceType, newValue) {
       let prod = db.products.find(p => p.id === productId);
       if(prod) {
@@ -184,6 +215,9 @@
       save();
       render();
     }
+
+    function exportCSV() { alert("تصدير الكتالوج..."); }
+    function importCSV() { alert("استيراد الملفات..."); }
 
     render();
   </script>
