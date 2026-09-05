@@ -19,26 +19,26 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Download & Setup Cordova / Capacitor CLI
+    - name: Setup Cordova
       run: |
         npm install -g cordova
 
-    - name: Build Webview Package
+    - name: Create & Build Project
       run: |
-        mkdir -p www
-        cp index.html www/
-        cp IMG-20260905-WA0013.jpg www/ 2>/dev/null || true
-        cp Logo.png www/ 2>/dev/null || true
-        
-        cordova create android_app com.alrayan.motostock "الريان قطع غيار"
-        cd android_app
-        rm -rf www
-        cp -r ../www .
+        cordova create app com.alrayan.motostock "الريان قطع غيار"
+        cd app
         cordova platform add android
+        
+        # نسخ ملفات الكود والصورة مباشرة إلى مجلد الـ www الخاص بـ Cordova
+        rm -rf www/*
+        cp ../index.html www/
+        cp ../IMG-20260905-WA0013.jpg www/ 2>/dev/null || true
+        cp ../Logo.png www/ 2>/dev/null || true
+        
         cordova build android --debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: AlRayan-Moto-Store-APK
-        path: android_app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
+        path: app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
