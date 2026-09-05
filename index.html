@@ -8,31 +8,26 @@
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
     body { background: #f4f6f8; color: #1e293b; padding: 12px; font-size: 14px; }
     
-    /* هيدر الشعار والعنوان */
     header { background: #0077b6; color: #fff; padding: 15px; text-align: center; border-radius: 12px; margin-bottom: 12px; }
-    .logo-img { max-width: 130px; height: auto; border-radius: 8px; margin-bottom: 8px; background: #fff; padding: 3px; display: block; margin-left: auto; margin-right: auto; }
+    .logo-img { max-width: 140px; height: auto; border-radius: 8px; margin-bottom: 8px; background: #fff; padding: 3px; display: block; margin-left: auto; margin-right: auto; }
     header h1 { font-size: 20px; margin-bottom: 2px; }
     header p { font-size: 12px; opacity: 0.9; }
 
-    /* الأزرار العلوية بالشكل القديم */
     nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center; }
     nav button { background: #2563eb; color: #fff; border: 0; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
     nav button.secondary { background: #64748b; }
 
-    /* الكروت والخانات */
     .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
     .btn-main { background: #2563eb; color: #fff; border: 0; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; float: left; margin-bottom: 12px; }
     
     input, select { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; font-size: 13px; background: #fff; outline: none; }
     
-    /* جدول الأسعار وخانات التعديل */
     table { width: 100%; border-collapse: collapse; margin-top: 8px; text-align: center; }
     th { background: #f8fafc; padding: 10px 4px; color: #475569; font-weight: bold; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
     td { padding: 8px 4px; border-bottom: 1px solid #f1f5f9; }
     td input[type="number"] { width: 60px; padding: 6px 2px; text-align: center; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background: #f8fafc; }
     td input[type="number"]:focus { border-color: #2563eb; background: #fff; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2); }
 
-    /* الإحصائيات */
     .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; text-align: center; }
     .kpi { background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; }
     .kpi b { font-size: 16px; color: #2563eb; display: block; margin-top: 4px; }
@@ -41,14 +36,13 @@
 </head>
 <body>
 
-  <!-- ترويسة التطبيق بالشعار الشغال -->
+  <!-- ترويسة البرنامج المسار التجريبي لجميع مسميات الصور عندك -->
   <header>
-    <img src="Logo.png" alt="الريان" class="logo-img" onerror="this.src='IMG-20260905-WA0013.jpg';">
+    <img src="IMG-20260905-WA0013.jpg" alt="الريان" class="logo-img" onerror="this.src='Logo.png'; this.onerror=function(){this.src='logo.png';}">
     <h1>الريان لقطع غيار الموتوسيكلات</h1>
     <p>إدارة الكتالوج والمخزون والأسعار</p>
   </header>
 
-  <!-- القائمة القديمة الكاملة بكل أزرارها -->
   <nav>
     <button onclick="show('home')">الرئيسية</button>
     <button onclick="show('products')">الكتالوج</button>
@@ -58,11 +52,11 @@
     <button onclick="show('move')" class="secondary">تحويل للعربية</button>
     <button onclick="show('customers')">العملاء</button>
     <button onclick="exportCSV()" class="secondary">تصدير الكتالوج</button>
-    <button onclick="importCSV()" class="secondary">استيراد</button>
+    <button onclick="document.getElementById('fileInput').click()" class="secondary">استيراد الأصناف</button>
+    <input type="file" id="fileInput" class="hide" accept=".csv,.json" onchange="importData(event)">
   </nav>
 
   <main>
-    <!-- الرئيسية -->
     <section id="home">
       <div class="card">
         <div class="kpis">
@@ -74,7 +68,6 @@
       </div>
     </section>
 
-    <!-- الكتالوج والمنتجات -->
     <section id="products" class="hide">
       <div class="card">
         <button class="btn-main" onclick="addProduct()">+ إضافة صنف</button>
@@ -103,7 +96,6 @@
       </div>
     </section>
 
-    <!-- باقي الأقسام القديمة -->
     <section id="stock" class="hide"><div class="card"><h3>المخزون التفصيلي</h3></div></section>
     <section id="sale" class="hide"><div class="card"><h3>حركة البيع</h3></div></section>
     <section id="buy" class="hide"><div class="card"><h3>حركة الشراء</h3></div></section>
@@ -124,11 +116,9 @@
       moves: []
     };
 
-    // دالة استعادت الأصناف القديمة بالكامل
     function loadData() {
       let dataOld = localStorage.getItem('alrayanMotoStock');
       let dataV2 = localStorage.getItem('alrayanMotoStock_v2');
-      
       let parsedOld = dataOld ? JSON.parse(dataOld) : null;
       let parsedV2 = dataV2 ? JSON.parse(dataV2) : null;
 
@@ -186,7 +176,6 @@
       if(stockRows) stockRows.innerHTML = html;
     }
 
-    // التحديث التلقائي الفوري للسعر
     function updatePrice(productId, priceType, newValue) {
       let prod = db.products.find(p => p.id === productId);
       if(prod) {
@@ -216,8 +205,33 @@
       render();
     }
 
-    function exportCSV() { alert("تصدير الكتالوج..."); }
-    function importCSV() { alert("استيراد الملفات..."); }
+    function exportCSV() {
+      let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
+      let dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute("href", dataStr);
+      dlAnchor.setAttribute("download", "Catalog_Backup.json");
+      dlAnchor.click();
+    }
+
+    function importData(e) {
+      let file = e.target.files[0];
+      if (!file) return;
+      let reader = new FileReader();
+      reader.onload = function(evt) {
+        try {
+          let imported = JSON.parse(evt.target.result);
+          if (imported && imported.products) {
+            db = imported;
+            save();
+            render();
+            alert("تم استيراد الأصناف بنجاح!");
+          }
+        } catch(err) {
+          alert("خطأ في قراءة الملف.");
+        }
+      };
+      reader.readAsText(file);
+    }
 
     render();
   </script>
