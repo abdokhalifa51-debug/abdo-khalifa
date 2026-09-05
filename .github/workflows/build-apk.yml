@@ -16,11 +16,13 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Capacitor & Build
+      - name: Prepare Web Directory & Build Capacitor
         run: |
+          mkdir -p www
+          cp -r index.html catalog.csv styles.xml ic_launcher.xml AndroidManifest.xml MainActivity.java README_AR.txt www/ 2>/dev/null || cp -r * www/ 2>/dev/null || true
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init "AlRayan Moto Store" "com.alrayan.motostore" --web-dir .
+          npx cap init "AlRayan Moto Store" "com.alrayan.motostore" --web-dir www
           npx cap add android
           npx cap copy android
 
