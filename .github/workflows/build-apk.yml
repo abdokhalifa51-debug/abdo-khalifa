@@ -19,70 +19,26 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-
-    - name: Build Webview APK
+    - name: Download & Setup Cordova / Capacitor CLI
       run: |
-        mkdir -p android-project/app/src/main/assets
-        mkdir -p android-project/app/src/main/res/drawable
-        mkdir -p android-project/app/src/main/java/com/alrayan/motostock
+        npm install -g cordova
+
+    - name: Build Webview Package
+      run: |
+        mkdir -p www
+        cp index.html www/
+        cp IMG-20260905-WA0013.jpg www/ 2>/dev/null || true
+        cp Logo.png www/ 2>/dev/null || true
         
-        cp index.html android-project/app/src/main/assets/
-        cp IMG-20260905-WA0013.jpg android-project/app/src/main/assets/ 2>/dev/null || true
-        cp Logo.png android-project/app/src/main/assets/ 2>/dev/null || true
-
-        cat << 'EOF' > android-project/app/src/main/AndroidManifest.xml
-        <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.alrayan.motostock">
-            <uses-permission android:name="android.permission.INTERNET"/>
-            <application android:label="الريان قطع غيار" android:allowBackup="true" android:theme="@style/Theme.AppCompat.NoActionBar">
-                <activity android:name=".MainActivity" android:exported="true" android:configChanges="orientation|screenSize">
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN"/>
-                        <category android:name="android.intent.category.LAUNCHER"/>
-                    </intent-filter>
-                </activity>
-            </application>
-        </manifest>
-        EOF
-
-        cat << 'EOF' > android-project/app/src/main/java/com/alrayan/motostock/MainActivity.java
-        package com.alrayan.motostock;
-
-        import android.os.Bundle;
-        import android.webkit.WebSettings;
-        import android.webkit.WebView;
-        import android.webkit.WebViewClient;
-        import androidx.appcompat.app.AppCompatActivity;
-
-        public class MainActivity extends AppCompatActivity {
-            private WebView webView;
-
-            @Override
-            protected void onCreate(Bundle savedInstanceState) {
-                super.onCreate(savedInstanceState);
-                webView = new WebView(this);
-                setContentView(webView);
-
-                WebSettings ws = webView.getSettings();
-                ws.setJavaScriptEnabled(true);
-                ws.setDomStorageEnabled(true);
-                ws.setAllowFileAccess(true);
-                ws.setAllowContentAccess(true);
-
-                webView.setWebViewClient(new WebViewClient());
-                webView.loadUrl("file:///android_asset/index.html");
-            }
-        }
-        EOF
-
-    - name: Build APK with Gradle
-      run: |
-        cd android-project
-        gradle build || true
+        cordova create android_app com.alrayan.motostock "الريان قطع غيار"
+        cd android_app
+        rm -rf www
+        cp -r ../www .
+        cordova platform add android
+        cordova build android --debug
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: AlRayan-Moto-Store-APK
-        path: "**/*.apk"
+        path: android_app/platforms/android/app/build/outputs/apk/debug/app-debug.apk
