@@ -2,43 +2,50 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alrayan Moto Stock</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>الريان لقطع غيار الموتوسيكلات</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background: #f4f6f8; color: #1e293b; padding: 12px; font-size: 14px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    html, body { width: 100%; height: 100%; background: #f4f6f8; color: #1e293b; font-size: 14px; overflow-x: hidden; }
+    body { padding: 10px; }
     
-    header { background: #0077b6; color: #fff; padding: 15px; text-align: center; border-radius: 12px; margin-bottom: 12px; }
-    .logo-img { max-width: 140px; height: auto; border-radius: 8px; margin-bottom: 8px; background: #fff; padding: 3px; display: block; margin-left: auto; margin-right: auto; }
-    header h1 { font-size: 20px; margin-bottom: 2px; }
-    header p { font-size: 12px; opacity: 0.9; }
+    /* هيدر ثابت وبدون رعشة */
+    header { background: #0077b6; color: #fff; padding: 12px; text-align: center; border-radius: 10px; margin-bottom: 12px; }
+    .logo-img { max-width: 120px; height: auto; border-radius: 6px; margin: 0 auto 6px auto; background: #fff; padding: 2px; display: block; }
+    header h1 { font-size: 18px; font-weight: bold; }
+    header p { font-size: 11px; opacity: 0.9; }
 
-    nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; justify-content: center; }
-    nav button { background: #2563eb; color: #fff; border: 0; padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
+    /* الأزرار العلوية */
+    nav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; justify-content: center; }
+    nav button { background: #2563eb; color: #fff; border: 0; padding: 8px 12px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 12px; }
     nav button.secondary { background: #64748b; }
 
-    .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .btn-main { background: #2563eb; color: #fff; border: 0; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; float: left; margin-bottom: 12px; }
+    /* الكروت والجدول */
+    .card { background: #fff; border-radius: 10px; padding: 12px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .btn-main { background: #2563eb; color: #fff; border: 0; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
     
-    input, select { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; font-size: 13px; background: #fff; outline: none; }
+    input, select { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 8px; font-size: 13px; background: #fff; outline: none; }
     
-    table { width: 100%; border-collapse: collapse; margin-top: 8px; text-align: center; }
-    th { background: #f8fafc; padding: 10px 4px; color: #475569; font-weight: bold; border-bottom: 1px solid #e2e8f0; white-space: nowrap; }
-    td { padding: 8px 4px; border-bottom: 1px solid #f1f5f9; }
-    td input[type="number"] { width: 60px; padding: 6px 2px; text-align: center; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background: #f8fafc; }
-    td input[type="number"]:focus { border-color: #2563eb; background: #fff; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2); }
+    /* جدول الأصناف وتعديل الأسعار */
+    .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    table { width: 100%; border-collapse: collapse; text-align: center; font-size: 12px; }
+    th { background: #f1f5f9; padding: 8px 4px; color: #334155; font-weight: bold; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+    td { padding: 6px 2px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+    
+    /* خانات إدخال الأسعار المباشرة */
+    td input[type="number"] { width: 55px; padding: 5px 2px; text-align: center; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 12px; outline: none; background: #fff; }
+    td input[type="number"]:focus { border-color: #2563eb; background: #eef2ff; }
 
-    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; text-align: center; }
-    .kpi { background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0; }
-    .kpi b { font-size: 16px; color: #2563eb; display: block; margin-top: 4px; }
+    .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; text-align: center; }
+    .kpi { background: #f8fafc; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0; }
+    .kpi b { font-size: 14px; color: #2563eb; display: block; margin-top: 2px; }
     .hide { display: none !important; }
   </style>
 </head>
 <body>
 
-  <!-- ترويسة البرنامج المسار التجريبي لجميع مسميات الصور عندك -->
   <header>
-    <img src="IMG-20260905-WA0013.jpg" alt="الريان" class="logo-img" onerror="this.src='Logo.png'; this.onerror=function(){this.src='logo.png';}">
+    <img src="IMG-20260905-WA0013.jpg" alt="الريان" class="logo-img" onerror="this.src='Logo.png';">
     <h1>الريان لقطع غيار الموتوسيكلات</h1>
     <p>إدارة الكتالوج والمخزون والأسعار</p>
   </header>
@@ -51,9 +58,7 @@
     <button onclick="show('buy')">شراء / وارد</button>
     <button onclick="show('move')" class="secondary">تحويل للعربية</button>
     <button onclick="show('customers')">العملاء</button>
-    <button onclick="exportCSV()" class="secondary">تصدير الكتالوج</button>
-    <button onclick="document.getElementById('fileInput').click()" class="secondary">استيراد الأصناف</button>
-    <input type="file" id="fileInput" class="hide" accept=".csv,.json" onchange="importData(event)">
+    <button onclick="clearCache()" class="secondary" style="background:#dc2626;">تحديث واستعادة الأصناف</button>
   </nav>
 
   <main>
@@ -71,14 +76,10 @@
     <section id="products" class="hide">
       <div class="card">
         <button class="btn-main" onclick="addProduct()">+ إضافة صنف</button>
-        <div style="clear:both;"></div>
         <input type="text" id="search" placeholder="بحث بالاسم أو الكود..." oninput="render()">
-        <select id="brandFilter" onchange="render()"><option value="">كل الماركات</option></select>
-        <select id="modelFilter" onchange="render()"><option value="">كل الموديلات</option></select>
-        <select id="catFilter" onchange="render()"><option value="">كل الأقسام</option></select>
       </div>
 
-      <div class="card" style="overflow-x:auto;">
+      <div class="card table-container">
         <table>
           <thead>
             <tr>
@@ -104,37 +105,41 @@
   </main>
 
   <script>
-    const SEED = {
-      products: [
-        { id: "p1", code: "AR1001", category: "محرّك", brand: "هوجن", model: "HJ150-4", name: "بستم", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
-        { id: "p2", code: "AR1002", category: "محرّك", brand: "هوجن", model: "HJ150-4", name: "طقم بستم", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
-        { id: "p3", code: "AR1003", category: "محرّك", brand: "هوجن", model: "HJ150-4", name: "شنبر بستم", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
-        { id: "p4", code: "AR1004", category: "محرّك", brand: "هوجن", model: "HJ150-4", name: "بنز بستم", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
-        { id: "p5", code: "AR1005", category: "محرّك", brand: "هوجن", model: "HJ150-4", name: "جوان وش سلندر", buy: 0, retail: 0, wholesale: 0, dealer: 0 }
-      ],
-      locations: [],
-      moves: []
-    };
+    // الأصناف المباشرة والشاملة
+    const DEFAULT_PRODUCTS = [
+      { id: "p1", code: "AR1001", brand: "هوجن", model: "HJ150-4", name: "بستم", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
+      { id: "p2", code: "AR1002", brand: "هوجن", model: "HJ150-4", name: "طقم بستم", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
+      { id: "p3", code: "AR1003", brand: "هوجن", model: "HJ150-4", name: "شنبر بستم", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
+      { id: "p4", code: "AR1004", brand: "هوجن", model: "HJ150-4", name: "بنز بستم", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
+      { id: "p5", code: "AR1005", brand: "هوجن", model: "HJ150-4", name: "جوان وش سلندر", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
+      { id: "p6", code: "AR1006", brand: "دايون", model: "Dayun 4", name: "طقم صباب", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
+      { id: "p7", code: "AR1007", brand: "دايون", model: "Dayun 4", name: "فلتر زيت", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
+      { id: "p8", code: "AR1008", brand: "حلاوة", model: "Express", name: "تيل فرامل أمامي", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
+      { id: "p9", code: "AR1009", brand: "حلاوة", model: "Express", name: "تيل فرامل خلفي", buy: 0, retail: 0, wholesale: 0, dealer: 0 },
+      { id: "p10", code: "AR1010", brand: "عام", model: "عام", name: "جنط أمامي", buy: 0, retail: 0, wholesale: 0, dealer: 0 }
+    ];
 
-    function loadData() {
-      let dataOld = localStorage.getItem('alrayanMotoStock');
-      let dataV2 = localStorage.getItem('alrayanMotoStock_v2');
-      let parsedOld = dataOld ? JSON.parse(dataOld) : null;
-      let parsedV2 = dataV2 ? JSON.parse(dataV2) : null;
+    let db = { products: DEFAULT_PRODUCTS };
 
-      if (parsedOld && parsedOld.products && parsedOld.products.length >= (parsedV2?.products?.length || 0)) {
-        return parsedOld;
-      } else if (parsedV2) {
-        return parsedV2;
+    function initData() {
+      let saved = localStorage.getItem('alrayan_fresh_db');
+      if (saved) {
+        try { db = JSON.parse(saved); } catch(e) { db = { products: DEFAULT_PRODUCTS }; }
+      } else {
+        save();
       }
-      return SEED;
     }
 
-    let db = loadData();
-
     function save() {
-      localStorage.setItem('alrayanMotoStock', JSON.stringify(db));
-      localStorage.setItem('alrayanMotoStock_v2', JSON.stringify(db));
+      localStorage.setItem('alrayan_fresh_db', JSON.stringify(db));
+    }
+
+    function clearCache() {
+      localStorage.clear();
+      db = { products: DEFAULT_PRODUCTS };
+      save();
+      render();
+      alert("تم تحديث البيانات بنجاح وعرض كافة الأصناف!");
     }
 
     function show(id) {
@@ -145,19 +150,9 @@
 
     function render() {
       let q = (document.getElementById('search')?.value || '').toLowerCase();
-      let cf = (document.getElementById('catFilter')?.value || '');
-      let bf = (document.getElementById('brandFilter')?.value || '');
-      let mf = (document.getElementById('modelFilter')?.value || '');
-
       if(document.getElementById('nprod')) document.getElementById('nprod').textContent = db.products.length;
 
-      let filtered = db.products.filter(p => {
-        let matchQ = !q || (p.name && p.name.toLowerCase().includes(q)) || (p.code && p.code.toLowerCase().includes(q));
-        let matchC = !cf || p.category === cf;
-        let matchB = !bf || p.brand === bf;
-        let matchM = !mf || p.model === mf;
-        return matchQ && matchC && matchB && matchM;
-      });
+      let filtered = db.products.filter(p => !q || p.name.toLowerCase().includes(q) || p.code.toLowerCase().includes(q));
 
       let html = '';
       filtered.forEach(p => {
@@ -165,10 +160,10 @@
           <td>${p.brand || ''}</td>
           <td>${p.model || ''}</td>
           <td>${p.name || ''}</td>
-          <td><input type="number" value="${p.buy || 0}" onchange="updatePrice('${p.id}', 'buy', this.value)"> ج</td>
-          <td><input type="number" value="${p.retail || 0}" onchange="updatePrice('${p.id}', 'retail', this.value)"> ج</td>
-          <td><input type="number" value="${p.wholesale || 0}" onchange="updatePrice('${p.id}', 'wholesale', this.value)"> ج</td>
-          <td><input type="number" value="${p.dealer || 0}" onchange="updatePrice('${p.id}', 'dealer', this.value)"> ج</td>
+          <td><input type="number" value="${p.buy || 0}" onchange="updatePrice('${p.id}', 'buy', this.value)"></td>
+          <td><input type="number" value="${p.retail || 0}" onchange="updatePrice('${p.id}', 'retail', this.value)"></td>
+          <td><input type="number" value="${p.wholesale || 0}" onchange="updatePrice('${p.id}', 'wholesale', this.value)"></td>
+          <td><input type="number" value="${p.dealer || 0}" onchange="updatePrice('${p.id}', 'dealer', this.value)"></td>
         </tr>`;
       });
 
@@ -187,52 +182,22 @@
     function addProduct() {
       let name = prompt("اسم الصنف الجديد:");
       if(!name) return;
-      let brand = prompt("الماركة:") || "";
-      let model = prompt("الموديل:") || "";
+      let brand = prompt("الماركة:") || "عام";
+      let model = prompt("الموديل:") || "عام";
       
-      let newProd = {
-        id: "p" + (Date.now()),
+      db.products.push({
+        id: "p" + Date.now(),
         code: "AR" + (db.products.length + 1000),
-        category: "عام",
         brand: brand,
         model: model,
         name: name,
         buy: 0, retail: 0, wholesale: 0, dealer: 0
-      };
-      
-      db.products.push(newProd);
+      });
       save();
       render();
     }
 
-    function exportCSV() {
-      let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
-      let dlAnchor = document.createElement('a');
-      dlAnchor.setAttribute("href", dataStr);
-      dlAnchor.setAttribute("download", "Catalog_Backup.json");
-      dlAnchor.click();
-    }
-
-    function importData(e) {
-      let file = e.target.files[0];
-      if (!file) return;
-      let reader = new FileReader();
-      reader.onload = function(evt) {
-        try {
-          let imported = JSON.parse(evt.target.result);
-          if (imported && imported.products) {
-            db = imported;
-            save();
-            render();
-            alert("تم استيراد الأصناف بنجاح!");
-          }
-        } catch(err) {
-          alert("خطأ في قراءة الملف.");
-        }
-      };
-      reader.readAsText(file);
-    }
-
+    initData();
     render();
   </script>
 </body>
